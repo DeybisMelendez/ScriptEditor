@@ -1,0 +1,7 @@
+keyword: [if, and, end, function, else, elseif, for, return, break, local, repeat, until, do]
+string: [""", """]
+string: [''', ''']
+string: [", "]
+string: [', ']
+line_comment: --
+block_comment: [--[[, ]]]
