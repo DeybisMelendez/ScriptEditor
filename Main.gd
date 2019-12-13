@@ -107,3 +107,6 @@ func _input(event):
 			Editor.get_font("font").size +=1
 		elif event.is_action_pressed("resize_down"):
 			Editor.get_font("font").size -=1
+		elif event.is_action_pressed("comments"):
+			var begin = Editor.get_selection_from_line()
+			var end = Editor.get_selection_from_to_line()

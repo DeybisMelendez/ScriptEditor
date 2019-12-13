@@ -1,7 +1,7 @@
-keyword: [if, and, end, function, else, elseif, for, return, break, local, repeat, until, do]
+keyword: [and, end, in, repeat, break, false, local, return, do, for, nil, then, else, function, not, true, elseif, if, or, until, while]
 string: [""", """]
 string: [''', ''']
 string: [", "]
 string: [', ']
-line_comment: --
+line_comment: [--]
 block_comment: [--[[, ]]]

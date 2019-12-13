@@ -1,14 +1,9 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://Main.gd" type="Script" id=1]
 [ext_resource path="res://TextEdit.tscn" type="PackedScene" id=2]
-[ext_resource path="res://fonts/PressStart2P.ttf" type="DynamicFontData" id=3]
+[ext_resource path="res://fonts/Code.tres" type="DynamicFont" id=3]
 [ext_resource path="res://theme.tres" type="Theme" id=4]
-
-[sub_resource type="DynamicFont" id=1]
-use_mipmaps = true
-use_filter = true
-font_data = ExtResource( 3 )
 
 [node name="Main" type="Control"]
 anchor_right = 1.0
@@ -40,10 +35,10 @@ rect_min_size = Vector2( 16, 0 )
 
 [node name="FileLabel" type="Label" parent="VBoxContainer/ToolBar/HBoxContainer"]
 margin_left = 20.0
-margin_top = 8.0
+margin_top = 5.0
 margin_right = 20.0
-margin_bottom = 24.0
-custom_fonts/font = SubResource( 1 )
+margin_bottom = 27.0
+custom_fonts/font = ExtResource( 3 )
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer/ToolBar"]
 margin_left = 24.0
@@ -54,10 +49,10 @@ alignment = 2
 
 [node name="TextLabel" type="Label" parent="VBoxContainer/ToolBar/HBoxContainer2"]
 margin_left = 1236.0
-margin_top = 8.0
+margin_top = 5.0
 margin_right = 1236.0
-margin_bottom = 24.0
-custom_fonts/font = SubResource( 1 )
+margin_bottom = 27.0
+custom_fonts/font = ExtResource( 3 )
 
 [node name="MarginContainer2" type="MarginContainer" parent="VBoxContainer/ToolBar/HBoxContainer2"]
 margin_left = 1240.0
