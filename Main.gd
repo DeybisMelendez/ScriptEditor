@@ -12,9 +12,9 @@ onready var Confirm = $ConfirmDialog
 
 func _ready():
 	Editor.connect("text_changed", self, "text_changed")
+	Editor.connect("cursor_changed", self, "cursor_changed")
 	Dialog.connect("file_selected", self, "file_selected")
 	Confirm.connect("confirmed", self, "confirmed")
-	Editor.connect("cursor_changed", self, "cursor_changed")
 
 func cursor_changed():
 	col = Editor.cursor_get_column()

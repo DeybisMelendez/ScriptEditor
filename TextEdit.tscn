@@ -5,8 +5,9 @@
 [ext_resource path="res://TextEdit.gd" type="Script" id=3]
 
 [node name="TextEdit" type="TextEdit"]
-margin_right = 1024.0
-margin_bottom = 564.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+size_flags_horizontal = 3
 size_flags_vertical = 3
 theme = ExtResource( 1 )
 custom_fonts/font = ExtResource( 2 )
