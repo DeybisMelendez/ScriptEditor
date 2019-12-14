@@ -69,7 +69,7 @@ func save_file(path):
 	file.close()
 	copy_file = Editor.text
 	text_changed()
-	var sintax = Dialog.get_current_file().sintax.split(",",false)
+	var sintax = Dialog.get_current_file().split(".", false)
 	Editor.set_sintax(sintax[sintax.size()-1])
 
 func text_changed():
@@ -110,3 +110,6 @@ func _input(event):
 		elif event.is_action_pressed("comments"):
 			var begin = Editor.get_selection_from_line()
 			var end = Editor.get_selection_from_to_line()
+		elif event.is_action_pressed("workspace"):
+			Dialog.set_mode(FileDialog.MODE_OPEN_DIR)
+			Dialog.popup_centered_minsize()

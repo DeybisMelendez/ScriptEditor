@@ -17,6 +17,7 @@ anchor_bottom = 1.0
 [node name="TextEdit" parent="VBoxContainer" instance=ExtResource( 2 )]
 margin_right = 1280.0
 margin_bottom = 684.0
+custom_colors/current_line_color = Color( 0.0703125, 0.0703125, 0.0703125, 1 )
 
 [node name="ToolBar" type="HBoxContainer" parent="VBoxContainer"]
 margin_top = 688.0
@@ -61,6 +62,7 @@ margin_bottom = 32.0
 rect_min_size = Vector2( 16, 0 )
 
 [node name="FileDialog" type="FileDialog" parent="."]
+visible = true
 anchor_right = 1.0
 anchor_bottom = 1.0
 size_flags_horizontal = 3
@@ -70,12 +72,10 @@ window_title = "Abrir un archivo"
 resizable = true
 mode = 0
 access = 2
-show_hidden_files = true
 current_dir = "/home/damv/Documentos/LuaEditor"
 current_path = "/home/damv/Documentos/LuaEditor/"
 
 [node name="ConfirmDialog" type="ConfirmationDialog" parent="."]
-visible = true
 margin_right = 464.0
 margin_bottom = 81.0
 theme = ExtResource( 4 )
