@@ -1,37 +1,46 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://Main.gd" type="Script" id=1]
-[ext_resource path="res://TextEdit.tscn" type="PackedScene" id=2]
-[ext_resource path="res://ToolBar.tscn" type="PackedScene" id=3]
-[ext_resource path="res://theme.tres" type="Theme" id=4]
+[ext_resource path="res://Body.tscn" type="PackedScene" id=2]
+[ext_resource path="res://TextEdit.tscn" type="PackedScene" id=3]
+[ext_resource path="res://ToolBar.tscn" type="PackedScene" id=4]
+[ext_resource path="res://theme.tres" type="Theme" id=5]
 
 [node name="Main" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 script = ExtResource( 1 )
+Body = ExtResource( 2 )
 
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
+[node name="TabContainer" type="TabContainer" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
 
-[node name="TextEdit" parent="VBoxContainer" instance=ExtResource( 2 )]
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+editor/display_folded = true
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="TextEdit" parent="VBoxContainer" instance=ExtResource( 3 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
 margin_right = 1280.0
 margin_bottom = 684.0
 custom_colors/current_line_color = Color( 0.0703125, 0.0703125, 0.0703125, 1 )
 
-[node name="ToolBar" parent="VBoxContainer" instance=ExtResource( 3 )]
+[node name="ToolBar" parent="VBoxContainer" instance=ExtResource( 4 )]
 
 [node name="FileDialog" type="FileDialog" parent="."]
+visible = true
 anchor_right = 1.0
 anchor_bottom = 1.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
-theme = ExtResource( 4 )
-window_title = "Abrir un archivo"
+theme = ExtResource( 5 )
+window_title = "Abrir archivo(s)"
 resizable = true
-mode = 0
+mode = 1
 access = 2
 current_dir = "/home/damv/Documentos/LuaEditor"
 current_path = "/home/damv/Documentos/LuaEditor/"
@@ -39,7 +48,7 @@ current_path = "/home/damv/Documentos/LuaEditor/"
 [node name="ConfirmDialog" type="ConfirmationDialog" parent="."]
 margin_right = 464.0
 margin_bottom = 81.0
-theme = ExtResource( 4 )
+theme = ExtResource( 5 )
 resizable = true
 dialog_text = "Hay cambios en el archivo,
 ¿Desea cerrar sin guardar?"

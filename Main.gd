@@ -4,40 +4,43 @@ var copy_file = ""
 var txt_changed = false
 var col = 0
 var line = 0
-onready var TextLabel = $VBoxContainer/ToolBar/HBoxContainer2/TextLabel
-onready var FileLabel = $VBoxContainer/ToolBar/HBoxContainer/FileLabel
-onready var Editor = $VBoxContainer/TextEdit
+export (PackedScene) var Body
 onready var Dialog = $FileDialog
-onready var Confirm = $ConfirmDialog
+onready var TabCont = $TabContainer
 
 func _ready():
-	Editor.connect("text_changed", self, "text_changed")
-	Editor.connect("cursor_changed", self, "cursor_changed")
 	Dialog.connect("file_selected", self, "file_selected")
-	Confirm.connect("confirmed", self, "confirmed")
-
-func cursor_changed():
-	col = Editor.cursor_get_column()
-	line = Editor.cursor_get_line()
-	TextLabel.text = "Col: " + str(col) +", Line: " + str(line)
-
-func confirmed():
-	print("confirmed")
-	if Dialog.mode == FileDialog.MODE_OPEN_ANY:
-		new_file()
-	elif Dialog.mode == FileDialog.MODE_SAVE_FILE:
-		Dialog.popup_centered_minsize()
-	elif Dialog.mode == FileDialog.MODE_OPEN_FILE:
-		Dialog.popup_centered_minsize()
 
 func file_selected(path):
 	match Dialog.get_mode():
 		FileDialog.MODE_OPEN_FILE:
-			load_file(path)
-			OS.set_window_title(path)
+			new_file(path)
+			#set_focus_on_TextEditor()
+			#OS.set_window_title(path)
 		FileDialog.MODE_SAVE_FILE:
-			save_file(path)
+			save_file_as(path, Dialog.current_file)
+			set_focus_on_TextEditor()
 	Dialog.invalidate()
+
+func new_file(path):
+	var new_body = Body.instance()
+	var current_file = "untitled"
+	if path:
+		new_body.path = path
+		current_file = Dialog.current_file
+		new_body.current_file = current_file
+	else:
+		new_body.current_file = "untitled"
+	TabCont.add_child(new_body)
+	TabCont.set_tab_title(TabCont.get_tab_count()-1, current_file)
+	TabCont.current_tab = TabCont.get_tab_count()-1
+	set_focus_on_TextEditor()
+
+func set_focus_on_TextEditor():
+	TabCont.get_current_tab_control().focus_editor()
+
+func save_file_as(p, f):
+	TabCont.get_current_tab_control().save_file_as(p, f)
 
 func file_exists(path):
 	var file = File.new()
@@ -45,71 +48,32 @@ func file_exists(path):
 	file.close()
 	return file_exists
 
-func new_file():
-	print("new_file")
-	Editor.text = ""
-	copy_file = Editor.text
-	Dialog.set_current_file("")
-	text_changed()
-
-func load_file(path):
-	var file = File.new()
-	file.open(path, File.READ)
-	Editor.text = file.get_as_text()
-	file.close()
-	copy_file = Editor.text
-	FileLabel.text = Dialog.get_current_file()
-	var sintax = Dialog.get_current_file().split(".",false)
-	Editor.set_sintax(sintax[sintax.size()-1])
-
-func save_file(path):
-	var file = File.new()
-	file.open(path, File.WRITE)
-	file.store_string(Editor.text)
-	file.close()
-	copy_file = Editor.text
-	text_changed()
-	var sintax = Dialog.get_current_file().split(".", false)
-	Editor.set_sintax(sintax[sintax.size()-1])
-
-func text_changed():
-	txt_changed = Editor.text != copy_file
-	if txt_changed:
-		FileLabel.text = Dialog.current_file + "*"
-	else:
-		FileLabel.text = Dialog.current_file
+#func set_focus_on_TextEditor():
+#	TabCont.get_current_tab_control().get_node("VBoxContainer/TextEdit").grab_focus()
 
 func _input(event):
 	if event is InputEventKey:
 		if event.is_action_pressed("new_file"):
 			#usado para identificar nuevo archivo nada mas
-			Dialog.set_mode(FileDialog.MODE_OPEN_ANY)
-			if txt_changed:
-				Confirm.popup_centered_minsize()
-			else:
-				new_file()
+			new_file(null)
 		elif event.is_action_pressed("open_file"):
 			Dialog.set_mode(FileDialog.MODE_OPEN_FILE)
-			if txt_changed:
-				Confirm.popup_centered_minsize()
-			else:
-				Dialog.popup_centered_minsize()
-		elif event.is_action_pressed("save_file_as"):
-			Dialog.set_mode(FileDialog.MODE_SAVE_FILE)
 			Dialog.popup_centered_minsize()
-		elif event.is_action_pressed("save_file"):
-			Dialog.set_mode(FileDialog.MODE_SAVE_FILE)
-			if file_exists(Dialog.current_path):# and Dialog.current_dir != "":
-				save_file(Dialog.current_path)
-			else:
-				Dialog.popup_centered_minsize()
-		elif event.is_action_pressed("resize_up"):
-			Editor.get_font("font").size +=1
-		elif event.is_action_pressed("resize_down"):
-			Editor.get_font("font").size -=1
-		elif event.is_action_pressed("comments"):
-			var begin = Editor.get_selection_from_line()
-			var end = Editor.get_selection_from_to_line()
-		elif event.is_action_pressed("workspace"):
-			Dialog.set_mode(FileDialog.MODE_OPEN_DIR)
-			Dialog.popup_centered_minsize()
+		elif event.is_action_pressed("next_tab"):
+			var total_tabs = TabCont.get_tab_count()
+			if total_tabs > 1:
+				var next_tab = TabCont.current_tab + 1
+				if next_tab >= total_tabs:
+					TabCont.current_tab = 0
+				else:
+					TabCont.current_tab = next_tab
+			set_focus_on_TextEditor()
+		elif event.is_action_pressed("back_tab"):
+			var total_tabs = TabCont.get_tab_count()
+			if total_tabs > 1:
+				var back_tab = TabCont.current_tab - 1
+				if back_tab < 0:
+					TabCont.current_tab = total_tabs - 1
+				else:
+					TabCont.current_tab = back_tab
+			set_focus_on_TextEditor()
