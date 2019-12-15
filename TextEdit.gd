@@ -3,8 +3,15 @@ extends TextEdit
 const PATH = "res://sintax/"
 const YAML = ".yaml"
 
+onready var line = get_line(cursor_get_line())
+
+var last_char = ""
 func _ready():
-	theme.set_color("number_color", "TextEdit", "a1ffe1")
+	connect("text_changed", self, "text_changed")
+#	theme.set_color("number_color", "TextEdit", "a1ffe1")
+
+func text_changed():
+	brace_matching()
 
 func set_sintax(sintax):
 	clear_colors()
@@ -51,3 +58,21 @@ func set_keywords(keywords):
 	for keyword in keywords:
 		print(keyword)
 		add_keyword_color(keyword, Color("ff7185"))
+
+func _input(event):
+	if event is InputEventKey:
+		if event.is_pressed():
+			last_char = OS.get_scancode_string(event.get_scancode())
+			print(last_char)
+
+func brace_matching():
+	var matched = true
+	match last_char:
+		"QuoteDbl":
+			insert_text_at_cursor("\"")
+		"Apostrophe":
+			insert_text_at_cursor("\'")
+		_:
+			matched = false
+	if matched:
+		cursor_set_column(cursor_get_column()-1, true)

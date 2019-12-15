@@ -47,9 +47,6 @@ func _ready():
 	Editor.connect("cursor_changed", self, "cursor_changed")
 	Confirm.connect("confirmed", self, "confirmed")
 	load_file()
-#	TabCont.current_tab = TabCont.get_tab_count()-1
-#	Editor.grab_focus()
-	#current_file = path.split("/",false)[path.split("/",false).size()-1]
 
 func focus_editor():
 	Editor.grab_focus()
@@ -64,8 +61,6 @@ func focus_exited():
 func confirmed():
 	if TabCont.current_tab > 0:
 		TabCont.current_tab = TabCont.current_tab-1
-	#TabCont.get_current_tab_control().is_focused = true
-	#TabCont.get_current_tab_control().focus_editor()
 	queue_free()
 
 func cursor_changed():
@@ -82,9 +77,6 @@ func text_changed():
 		TabCont.set_tab_title(TabCont.current_tab, current_file)
 
 func load_file():
-#	if p:
-#		path = p
-#	current_file = path.split("/",false)[path.split("/",false).size()-1]
 	if path != "":
 		var file = File.new()
 		file.open(path, File.READ)
@@ -94,7 +86,7 @@ func load_file():
 		FileLabel.text = current_file
 		var sintax = current_file.split(".",false)
 		Editor.set_sintax(sintax[sintax.size()-1])
-		#TabCont.set_tab_title(TabCont.current_tab, current_file)
+		text_changed()
 
 func update_info():
 	TabCont.set_tab_title(TabCont.current_tab, current_file)

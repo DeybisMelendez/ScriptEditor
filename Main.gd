@@ -15,8 +15,6 @@ func file_selected(path):
 	match Dialog.get_mode():
 		FileDialog.MODE_OPEN_FILE:
 			new_file(path)
-			#set_focus_on_TextEditor()
-			#OS.set_window_title(path)
 		FileDialog.MODE_SAVE_FILE:
 			save_file_as(path, Dialog.current_file)
 			set_focus_on_TextEditor()
@@ -47,9 +45,6 @@ func file_exists(path):
 	var file_exists = file.file_exists(path)
 	file.close()
 	return file_exists
-
-#func set_focus_on_TextEditor():
-#	TabCont.get_current_tab_control().get_node("VBoxContainer/TextEdit").grab_focus()
 
 func _input(event):
 	if event is InputEventKey:
