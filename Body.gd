@@ -53,9 +53,9 @@ func _ready():
 
 func focus_editor():
 	Editor.grab_focus()
+	OS.set_window_title(path)
 
 func focus_entered():
-	OS.set_window_title(path)
 	is_focused = true
 
 func focus_exited():
@@ -74,11 +74,12 @@ func cursor_changed():
 	TextLabel.text = "Col: " + str(col) +", Line: " + str(line)
 
 func text_changed():
+	FileLabel.text ="Total: " + str(Editor.text.length()) + ", Changes: " + str(abs(copy_file.length() - Editor.text.length()))
 	txt_changed = Editor.text != copy_file
 	if txt_changed:
-		FileLabel.text = current_file + "*"
+		TabCont.set_tab_title(TabCont.current_tab, current_file + "*")
 	else:
-		FileLabel.text = current_file
+		TabCont.set_tab_title(TabCont.current_tab, current_file)
 
 func load_file():
 #	if p:
