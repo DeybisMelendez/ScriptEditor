@@ -8,7 +8,10 @@ onready var line = get_line(cursor_get_line())
 var last_char = ""
 func _ready():
 	connect("text_changed", self, "text_changed")
-#	theme.set_color("number_color", "TextEdit", "a1ffe1")
+	connect("request_completion", self, "test")
+
+func test():
+	print("completion")
 
 func text_changed():
 	brace_matching()
@@ -47,10 +50,6 @@ func set_line_comment(formats):
 func set_block_comment(formats):
 	add_color_region(formats[0], formats[1], Color("80c1cdd0"))
 
-#func set_strings(formats):
-#	for format in formats:
-#		add_color_region(format, format, Color.yellow)
-
 func set_string(formats):
 	add_color_region(formats[0], formats[1], Color("ffeca1"))
 
@@ -63,7 +62,6 @@ func _input(event):
 	if event is InputEventKey:
 		if event.is_pressed():
 			last_char = OS.get_scancode_string(event.get_scancode())
-			print(last_char)
 
 func brace_matching():
 	var matched = true
@@ -72,6 +70,12 @@ func brace_matching():
 			insert_text_at_cursor("\"")
 		"Apostrophe":
 			insert_text_at_cursor("\'")
+		"ParenLeft":
+			insert_text_at_cursor(")")
+		"BraceLeft":
+			insert_text_at_cursor("}")
+		"BracketLeft":
+			insert_text_at_cursor("]")
 		_:
 			matched = false
 	if matched:

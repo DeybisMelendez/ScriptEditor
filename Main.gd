@@ -30,8 +30,9 @@ func new_file(path):
 	else:
 		new_body.current_file = "untitled"
 	TabCont.add_child(new_body)
-	TabCont.set_tab_title(TabCont.get_tab_count()-1, current_file)
 	TabCont.current_tab = TabCont.get_tab_count()-1
+	TabCont.get_current_tab_control().load_file()
+	#TabCont.set_tab_title(TabCont.current_tab, current_file)
 	set_focus_on_TextEditor()
 
 func set_focus_on_TextEditor():

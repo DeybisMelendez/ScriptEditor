@@ -15,7 +15,6 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 
 [node name="FileDialog" type="FileDialog" parent="."]
-visible = true
 anchor_right = 1.0
 anchor_bottom = 1.0
 size_flags_horizontal = 3
@@ -25,8 +24,8 @@ window_title = "Abrir archivo(s)"
 resizable = true
 mode = 1
 access = 2
-current_dir = "/home/damv/Documentos/LuaEditor"
-current_path = "/home/damv/Documentos/LuaEditor/"
+current_dir = "/home/deybis/repos/ScriptEditor"
+current_path = "/home/deybis/repos/ScriptEditor/"
 
 [node name="ConfirmDialog" type="ConfirmationDialog" parent="."]
 margin_right = 464.0

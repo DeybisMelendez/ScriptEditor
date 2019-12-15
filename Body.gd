@@ -27,7 +27,7 @@ func _input(event):
 					Dialog.popup_centered_minsize()
 				else:
 					save_file()
-			elif event.is_action_pressed("close_file"):
+			elif event.is_action_released("close_file"):
 				if txt_changed:
 					Confirm.popup_centered_minsize()
 				else:
@@ -41,12 +41,16 @@ func add_size_font(value):
 	Editor.get_font("font").size += value
 
 func _ready():
+	connect("focus_entered", self, "body_focus_entered")
 	Editor.connect("focus_entered", self, "focus_entered")
 	Editor.connect("focus_exited", self, "focus_exited")
 	Editor.connect("text_changed", self, "text_changed")
 	Editor.connect("cursor_changed", self, "cursor_changed")
 	Confirm.connect("confirmed", self, "confirmed")
-	load_file()
+	#load_file()
+
+func body_focus_entered():
+	focus_editor()
 
 func focus_editor():
 	Editor.grab_focus()
@@ -59,8 +63,6 @@ func focus_exited():
 	is_focused = false
 
 func confirmed():
-	if TabCont.current_tab > 0:
-		TabCont.current_tab = TabCont.current_tab-1
 	queue_free()
 
 func cursor_changed():
