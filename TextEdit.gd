@@ -6,6 +6,7 @@ const YAML = ".yaml"
 onready var line = get_line(cursor_get_line())
 
 var last_char = ""
+
 func _ready():
 	connect("text_changed", self, "text_changed")
 	connect("request_completion", self, "test")
@@ -62,6 +63,16 @@ func _input(event):
 	if event is InputEventKey:
 		if event.is_pressed():
 			last_char = OS.get_scancode_string(event.get_scancode())
+			if event.is_action_pressed("show_lines"):
+				var begin = get_selection_from_line()
+				var finish = get_selection_to_line()
+				for line in finish-begin:
+					set_line_as_hidden(begin+line, false)
+			elif event.is_action_pressed("hide_lines"):
+				var begin = get_selection_from_line()
+				var finish = get_selection_to_line()
+				for line in finish-begin:
+					set_line_as_hidden(begin+line, true)
 
 func brace_matching():
 	var matched = true
