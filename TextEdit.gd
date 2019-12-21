@@ -4,7 +4,7 @@ const PATH = "res://sintax/"
 const YAML = ".yaml"
 
 onready var line = get_line(cursor_get_line())
-
+var symbols = {}
 var last_char = ""
 
 func _ready():
@@ -45,8 +45,9 @@ func set_sintax(sintax):
 				set_block_comment(array)
 
 func set_line_comment(formats):
-	for format in formats:
-		add_color_region(format, "\n", Color("80c1cdd0"),true)
+	if not symbols.has("comments"):
+		symbols["comments"] = formats[0]
+	add_color_region(formats[0], "\n", Color("80c1cdd0"),true)
 
 func set_block_comment(formats):
 	add_color_region(formats[0], formats[1], Color("80c1cdd0"))
@@ -73,6 +74,22 @@ func _input(event):
 				var finish = get_selection_to_line()
 				for line in finish-begin:
 					set_line_as_hidden(begin+line, true)
+			elif event.is_action_pressed("find"):
+				if $HBoxContainer.visible:
+					$HBoxContainer.hide()
+				else:
+					$HBoxContainer.show()
+#			elif event.is_action_pressed("comments"):
+#				var begin = get_selection_from_line()
+#				var finish = get_selection_to_line()
+#				var originLine = cursor_get_line()
+#				var originColumn = cursor_get_column()
+#				for line in finish-begin:
+#					cursor_set_line(line)
+#					cursor_set_column(0)
+#					insert_text_at_cursor(symbols["comments"])
+				#cursor_set_line(originLine)
+				#cursor_set_column(originColumn)
 
 func brace_matching():
 	var matched = true
