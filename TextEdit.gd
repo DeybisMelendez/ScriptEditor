@@ -46,7 +46,7 @@ func set_sintax(sintax):
 
 func set_line_comment(formats):
 	for format in formats:
-		add_color_region(format, "\n", Color("80c1cdd0"), true)
+		add_color_region(format, "\n", Color("80c1cdd0"),true)
 
 func set_block_comment(formats):
 	add_color_region(formats[0], formats[1], Color("80c1cdd0"))

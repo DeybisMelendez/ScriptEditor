@@ -76,15 +76,17 @@ func _input(event):
 				Dialog.set_mode(FileDialog.MODE_OPEN_FILE)
 				Dialog.popup_centered_minsize()
 			elif event.is_action_pressed("save_file_as"):
-				Dialog.set_mode(FileDialog.MODE_SAVE_FILE)
-				Dialog.popup_centered_minsize()
-			elif event.is_action_pressed("save_file"):
-				var path = get_path()
-				if path == "":
+				if TabCont.get_tab_count() > 0:
 					Dialog.set_mode(FileDialog.MODE_SAVE_FILE)
 					Dialog.popup_centered_minsize()
-				else:
-					save_file(null)
+			elif event.is_action_pressed("save_file"):
+				if TabCont.get_tab_count() > 0:
+					var path = get_path()
+					if path == "":
+						Dialog.set_mode(FileDialog.MODE_SAVE_FILE)
+						Dialog.popup_centered_minsize()
+					else:
+						save_file(null)
 			elif event.is_action_pressed("close_file"):
 				if TabCont.get_tab_count() > 0:
 					if text_changed():
