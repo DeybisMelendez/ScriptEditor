@@ -25,8 +25,8 @@ window_title = "Abrir archivo(s)"
 resizable = true
 mode = 1
 access = 2
-current_dir = "/home/damv/Documentos/repos/ScriptEditor"
-current_path = "/home/damv/Documentos/repos/ScriptEditor/"
+current_dir = "/home/deybis/repos/ScriptEditor"
+current_path = "/home/deybis/repos/ScriptEditor/"
 
 [node name="ConfirmDialog" type="ConfirmationDialog" parent="."]
 visible = true

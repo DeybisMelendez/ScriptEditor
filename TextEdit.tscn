@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://fonts/Code.tres" type="DynamicFont" id=1]
 [ext_resource path="res://TextEdit.gd" type="Script" id=2]
+[ext_resource path="res://HBoxContainer.gd" type="Script" id=3]
 
 [node name="TextEdit" type="TextEdit"]
 anchor_right = 1.0
@@ -31,3 +32,34 @@ caret_block_mode = true
 caret_blink = true
 caret_blink_speed = 0.3
 script = ExtResource( 2 )
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = -24.0
+size_flags_horizontal = 3
+script = ExtResource( 3 )
+
+[node name="LineEdit" type="LineEdit" parent="HBoxContainer"]
+margin_right = 1143.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+
+[node name="Up" type="Button" parent="HBoxContainer"]
+margin_left = 1147.0
+margin_right = 1177.0
+margin_bottom = 24.0
+text = "Up"
+
+[node name="Down" type="Button" parent="HBoxContainer"]
+margin_left = 1181.0
+margin_right = 1229.0
+margin_bottom = 24.0
+text = "Down"
+
+[node name="Close" type="Button" parent="HBoxContainer"]
+margin_left = 1233.0
+margin_right = 1280.0
+margin_bottom = 24.0
+text = "Close"
