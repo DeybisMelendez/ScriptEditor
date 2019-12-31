@@ -1,0 +1,7 @@
+keyword: [alias, and, BEGIN, begin, break, case, class, def, defined?, do, else, elsif, END, end, ensure, false, for, if, module, next, nil, not, or, redo, rescue, retry, return, self, super, then, true, undef, unles, until, when, while, yield, __FILE__, __LINE__, __ENCODING__]
+string: [""", """]
+string: [''', ''']
+string: [", "]
+string: [', ']
+line_comment: [#]
+block_comment: [=begin, =end]]]
